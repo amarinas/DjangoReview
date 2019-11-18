@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post
 from django.utils import timezone
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 from django.views.generic import ListView
 from blog.models import Post
 from django.contrib.auth.decorators import login_required
@@ -65,3 +65,16 @@ def post_remove(request, pk):
 class HomeView(ListView):
     template_name = 'base.html'
     queryset = Post.objects.order_by('-published_date')
+
+def add_comment(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.save()
+            return redirect('post_detail', pk= post.pk)
+    else:
+        form = CommentForm()
+    return render(request, 'blog/add_comment.html', {'form':form})
