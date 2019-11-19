@@ -125,6 +125,12 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'bower_components'),
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
 LOGIN_REDIRECT_URL = '/'
 
 TEMPLATES_DIR = [os.path.join(BASE_DIR, 'templates')]

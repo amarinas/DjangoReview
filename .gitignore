@@ -5,3 +5,5 @@ pipenv
 db.sqlite3
 /static
 .DS_Store
+bower_components/
+mysite/.bowerrc
